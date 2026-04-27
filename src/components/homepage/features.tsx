@@ -14,11 +14,10 @@ function Features() {
 			<section className="max-w-[1400px] mx-auto px-container-padding py-24">
 				<div className="mb-16">
 					<h2 className="text-3xl font-semibold text-primary mb-4">
-						Built for speed.
+						Routing that scales.
 					</h2>
 					<p className="text-lg text-muted-foreground max-w-xl">
-						Ship world-class software without the infrastructure
-						overhead.
+						Automate your lead assignment and capture activities without the operational overhead.
 					</p>
 				</div>
 				<div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -28,11 +27,10 @@ function Features() {
 							<Network />
 						</div>
 						<h3 className="text-xl font-semibold text-primary mb-2">
-							API First
+							Dynamic Rulesets
 						</h3>
 						<p className="font-base text-base text-foreground">
-							Comprehensive REST and GraphQL APIs that put
-							developers first. Integrate in minutes, not days.
+							Build complex routing rules using equal distribution, round-robin, or territory mapping to ensure leads hit the right reps.
 						</p>
 					</div>
 					{/* <!-- Feature 2 --> */}
@@ -41,11 +39,10 @@ function Features() {
 							<LanguagesIcon />
 						</div>
 						<h3 className="text-xl font-semibold text-primary mb-2">
-							Edge Ready
+							Real-time SLA Alerts
 						</h3>
 						<p className="font-base text-base text-foreground">
-							Deploy your logic globally to 200+ edge locations
-							for sub-50ms latency everywhere on earth.
+							Set time-to-action limits and trigger instant webhooks or notifications when a lead is stale.
 						</p>
 					</div>
 					{/* <!-- Feature 3 --> */}
@@ -54,12 +51,10 @@ function Features() {
 							<WifiSyncIcon />
 						</div>
 						<h3 className="text-xl font-semibold text-primary mb-2">
-							Real-time Sync
+							Automated Activity Capture
 						</h3>
 						<p className="font-base text-base text-foreground">
-							Automatic state synchronization with conflict
-							resolution built-in. Your users are never out of
-							sync.
+							Automatically log activities, meetings, and outcomes directly into your CRM or dashboard seamlessly.
 						</p>
 					</div>
 				</div>
@@ -76,21 +71,19 @@ function Features() {
 							/>
 						</div>
 						<h3 className="text-2xl font-semibold mb-3 relative z-10">
-							Advanced Security
+							No more lost leads
 						</h3>
 						<p className="text-base text-primary-foreground/80 relative z-10 max-w-xs">
-							Enterprise-grade encryption and compliance out of
-							the box.
+							Seamless API integration ensures your top prospects are routed in milliseconds.
 						</p>
 					</div>
 					<div className="md:col-span-2 bg-surface-container rounded-2xl p-8 flex items-center justify-between overflow-hidden">
 						<div>
 							<h4 className="font-xl text-xl font-medium text-primary mb-2">
-								Infinite Scaling
+								Unlimited Scale
 							</h4>
 							<p className="font-sm text-sm text-foreground">
-								From 1 to 100M+ requests without breaking a
-								sweat.
+								Process thousands of routing events instantly.
 							</p>
 						</div>
 						<div className="w-32 h-32 bg-white rounded-xl shadow-sm rotate-12 flex items-center justify-center border border-border">
@@ -100,13 +93,13 @@ function Features() {
 					<div className="bg-accent rounded-2xl p-8 flex flex-col justify-between">
 						<Sparkles className="text-primary text-3xl" />
 						<h4 className="font-lg text-lg font-medium text-primary">
-							AI Powered Metrics
+							Smart Analytics
 						</h4>
 					</div>
 					<div className="bg-foreground text-primary-foreground rounded-2xl p-8 flex flex-col justify-between">
 						<Terminal className="text-primary-foreground text-3xl" />
 						<h4 className="font-lg text-lg font-medium">
-							CLI Built for Speed
+							Developer First API
 						</h4>
 					</div>
 				</div>

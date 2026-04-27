@@ -89,7 +89,8 @@ export const createSubscriptionStore = (
                     set((state) => ({ ...state, loading: true, error: null }));
 
                     try {
-                        await authClient.checkout({
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        await (authClient as any).checkout({
                             products,
                             referenceId: organizationId,
                         });
@@ -112,7 +113,8 @@ export const createSubscriptionStore = (
                     set((state) => ({ ...state, loading: true, error: null }));
 
                     try {
-                        await authClient.customer.portal();
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        await (authClient as any).customer.portal();
                         set({ loading: false });
                     } catch (error) {
                         console.error("Error opening customer portal:", error);

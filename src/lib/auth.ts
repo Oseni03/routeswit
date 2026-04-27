@@ -6,7 +6,8 @@ import {
 	magicLink,
 	twoFactor,
 } from "better-auth/plugins";
-import { admin, member } from "./auth/permissions";
+import { apiKey } from "@better-auth/api-key";
+import { admin, member } from "./permissions";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { prisma } from "./prisma";
 import {
@@ -142,7 +143,8 @@ export const auth = betterAuth({
 				user: {
 					...user,
 					role: organization?.role,
-					theme: user.theme,
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					theme: (user as any).theme,
 				},
 				session,
 				activeOrganizationId: organization?.id,
@@ -185,7 +187,22 @@ export const auth = betterAuth({
 		twoFactor({
 			issuer: "Multi-tenant SaaS Boilerplate",
 		}),
-		nextCookies(),
+		apiKey([
+			{
+				// Default config — org-scoped API keys for the Route API
+				configId: "default",
+				references: "organization",
+				defaultPrefix: "sk_",
+				enableMetadata: true,
+				// enableSessionForAPIKeys is intentionally NOT set — leaked keys must not impersonate sessions
+				rateLimit: {
+					enabled: true,
+					maxRequests: 1000,
+					timeWindow: 1000 * 60 * 60, // 1 hour
+				},
+			},
+		]),
+		nextCookies(), // MUST remain last
 	],
 });
 

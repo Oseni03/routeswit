@@ -5,8 +5,10 @@ import {
 	Settings,
 	User,
 	LayoutDashboard,
-	BarChart3,
-	Network,
+	KeyRound,
+	Users,
+	Route,
+	Contact,
 } from "lucide-react";
 import { NavMain } from "@/components/nav-main";
 import { NavUser } from "@/components/nav-user";
@@ -28,6 +30,30 @@ const dashboardItems = [
 		label: "Dashboard",
 		icon: LayoutDashboard,
 		url: "/dashboard",
+	},
+	{
+		id: "reps",
+		label: "Reps",
+		icon: Users,
+		url: "/dashboard/reps",
+	},
+	{
+		id: "rulesets",
+		label: "Rulesets",
+		icon: Route,
+		url: "/dashboard/rulesets",
+	},
+	{
+		id: "contacts",
+		label: "Contacts",
+		icon: Contact,
+		url: "/dashboard/contacts",
+	},
+	{
+		id: "api-keys",
+		label: "API Keys",
+		icon: KeyRound,
+		url: "/dashboard/api-keys",
 	},
 	{
 		id: "settings",

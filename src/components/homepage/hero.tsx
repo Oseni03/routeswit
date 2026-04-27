@@ -13,10 +13,10 @@ function Hero() {
 				</span>
 			</div>
 			<h1 className="text-4xl md:text-6xl font-semibold tracking-tight text-primary mb-6 max-w-3xl">
-				Build faster.
+				Intelligent Lead Routing.
 			</h1>
 			<p className="text-lg text-muted-foreground max-w-xl mb-10">
-				Ship world-class software without the overhead.
+				Route leads to the right reps instantly. Capture all activities automatically.
 			</p>
 			<div className="flex flex-col sm:flex-row gap-4">
 				<div className="flex flex-col sm:flex-row gap-4">

@@ -48,3 +48,17 @@ export interface InvitationData {
 	createdAt: string;
 	expiresAt: string;
 }
+
+// Route API Types
+export type {
+	ConditionOperator,
+	RuleCondition,
+	SpecificRepAssignment,
+	RoundRobinAssignment,
+	TerritoryAssignment,
+	AssignmentConfig,
+	RoutingRule,
+	FallbackConfig,
+	RulesetData,
+	RouteLeadResult,
+} from "../server/routing";

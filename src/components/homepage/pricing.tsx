@@ -112,7 +112,7 @@ function Pricing() {
 					<ul className="space-y-4 mb-8 flex-grow">
 						<li className="flex items-center gap-3 font-sm text-sm text-on-surface">
 							<CheckCircle className="text-success-text text-lg w-5 h-5" />
-							Infinite throughput
+							Custom SLA routing limits
 						</li>
 						<li className="flex items-center gap-3 font-sm text-sm text-on-surface">
 							<CheckCircle className="text-success-text text-lg w-5 h-5" />
@@ -120,11 +120,11 @@ function Pricing() {
 						</li>
 						<li className="flex items-center gap-3 font-sm text-sm text-on-surface">
 							<CheckCircle className="text-success-text text-lg w-5 h-5" />
-							99.99% uptime SLA
+							Custom integrations
 						</li>
 						<li className="flex items-center gap-3 font-sm text-sm text-on-surface">
 							<CheckCircle className="text-success-text text-lg w-5 h-5" />
-							Custom compliance
+							Advanced Compliance
 						</li>
 					</ul>
 					<Button className="w-full py-3 border border-border rounded-lg font-sm text-sm font-bold hover:bg-accent transition-colors">
