@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 // Loading fallback component
 const SettingsLoading = () => (
-    <div className="p-4 sm:p-6 space-y-6 mx-auto">
+    <div className="w-full space-y-6">
         {/* Header Skeleton */}
         <div className="p-0 space-y-2">
             <Skeleton className="h-8 w-32 sm:w-40" />

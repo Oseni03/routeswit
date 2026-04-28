@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 // Loading fallback component
 const AccountLoading = () => (
-    <div className="p-container-padding max-w-5xl mx-auto space-y-12 animate-in fade-in duration-500">
+    <div className="w-full space-y-12 animate-in fade-in duration-500">
         <div className="space-y-2">
             <Skeleton className="h-10 w-64" />
             <Skeleton className="h-5 w-96" />
@@ -37,7 +37,7 @@ export default async function AccountPage() {
     }
 
     return (
-        <div className="min-h-screen">
+        <div className="w-full min-h-screen">
             <Suspense fallback={<AccountLoading />}>
                 <AccountClient initialSession={session} />
             </Suspense>

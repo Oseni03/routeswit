@@ -27,7 +27,7 @@ export default async function ContactsPage() {
 	const organizationId = session.activeOrganizationId;
 	if (!organizationId) {
 		return (
-			<div className="p-container-padding flex flex-col items-center justify-center h-[50vh]">
+			<div className="flex flex-col items-center justify-center h-[50vh]">
 				<h2 className="text-xl font-semibold">
 					No organization selected
 				</h2>
@@ -66,7 +66,7 @@ export default async function ContactsPage() {
 		]);
 
 	return (
-		<div className="p-container-padding max-w-[1200px] mx-auto space-y-8">
+		<div className="w-full space-y-8">
 			<div className="space-y-3">
 				<div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
 					<div>

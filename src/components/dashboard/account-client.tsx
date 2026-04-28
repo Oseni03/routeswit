@@ -65,7 +65,7 @@ export function AccountClient({ initialSession }: { initialSession: Session }) {
 	};
 
 	return (
-		<div className="p-container-padding max-w-5xl mx-auto space-y-12 animate-in fade-in duration-500 pb-20">
+		<div className="w-full space-y-12 animate-in fade-in duration-500 pb-20">
 			{/* Page Header */}
 			<div className="space-y-2">
 				<h1 className="text-4xl font-semibold tracking-tight text-foreground">
