@@ -1,10 +1,12 @@
-# Notall
+# Routeswit
 
-A multi-tenant SaaS notes application built with Next.js, demonstrating enterprise-grade multi-tenancy, authentication, and subscription management patterns.
+The ultimate lead routing and activity capture engine for modern sales teams. built with Next.js 15, Prisma, and PostgreSQL.
+
+[Read the API Documentation](API.md)
 
 ## Overview
 
-Notall is a production-ready multi-tenant application where multiple organizations (tenants) can securely manage their users and notes with complete data isolation. Built as a Next.js SaaS boilerplate with role-based access control and subscription feature gating.
+Routeswit is a production-ready lead routing engine that allows organizations to securely manage their sales representatives, define complex routing rulesets, and capture lead activities with complete data isolation.
 
 ---
 
@@ -12,10 +14,11 @@ Notall is a production-ready multi-tenant application where multiple organizatio
 
 ### Core Functionality
 
-- **Multi-Tenancy** - Strict tenant isolation using shared schema with `organizationId` filtering
-- **Notes Management** - Full CRUD operations with tenant-aware access control
-- **Team Collaboration** - User invitations, role management, and permissions
-- **JWT Authentication** - Secure token-based authentication with role-based authorization
+- **Lead Routing** - Intelligent distribution based on industry, company size, geography, and more.
+- **Ruleset Engine** - Define priority-based routing logic with support for Round Robin and Territory mapping.
+- **Activity Capture** - Log interactions (calls, emails, meetings) to monitor lead engagement.
+- **SLA Tracking** - Set response time targets and receive alerts on breaches.
+- **API First** - Fully documented REST API for seamless integration with your CRM or marketing stack.
 
 ### SaaS Features
 
@@ -334,43 +337,24 @@ npx prisma studio        # Open database GUI
 
 ---
 
-## 🌐 API Reference
+### API Reference
 
-### Health Check
-
-```http
-GET /api/health
-Response: { "status": "ok" }
-```
-
-### Authentication
+Detailed documentation is available in [API.md](API.md).
 
 ```http
-POST /api/auth/login
-Body: { "email": "admin@acme.test", "password": "password" }
-Response: { "token": "jwt-token", "user": {...} }
-```
-
-### Notes Operations
-
-```http
-# Create Note
-POST /api/notes
+# Route a Lead
+POST /api/v1/leads
 Headers: { "Authorization": "Bearer <token>" }
-Body: { "title": "My Note", "content": "Note content" }
+Body: { "lead_id": "...", "ruleset_id": "...", "attributes": {...} }
 
-# List Notes
-GET /api/notes
+# List Representatives
+GET /api/v1/reps
 Headers: { "Authorization": "Bearer <token>" }
 
-# Update Note
-PUT /api/notes/:id
+# Log Contact Activity
+POST /api/v1/contacts/[contact_id]/activities
 Headers: { "Authorization": "Bearer <token>" }
-Body: { "title": "Updated Title", "content": "Updated content" }
-
-# Delete Note
-DELETE /api/notes/:id
-Headers: { "Authorization": "Bearer <token>" }
+Body: { "activity_type": "call", "timestamp": "...", "notes": "..." }
 ```
 
 ---

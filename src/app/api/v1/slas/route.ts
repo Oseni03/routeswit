@@ -1,28 +1,26 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { resolveApiAuth, domainError, apiErr } from "@/lib/route-api-auth";
-import { createOrUpdateStaleAlert } from "@/server/analytics";
+import { createOrUpdateSla } from "@/server/analytics";
 
-const StaleAlertSchema = z.object({
+const SlaSchema = z.object({
     ruleset_id: z.string().min(1),
-    no_activity_hours: z.number().int().min(1).max(8760),
-    alert_type: z.literal("webhook"),
-    webhook_url: z.string().url(),
-    cooldown_hours: z.number().int().min(1).max(168).optional(),
+    first_response_target_minutes: z.number().int().min(1).max(10080),
+    alert_on_breach: z.boolean().default(true),
+    alert_webhook: z.string().url().optional(),
 });
 
 /**
- * POST /api/v1/route/[org]/alerts/stale
- * Creates or updates a stale-deal alert configuration for a ruleset.
+ * POST /api/v1/slas
+ * Creates or updates an SLA configuration for a ruleset.
  */
 export async function POST(
-    req: NextRequest,
-    { params }: { params: Promise<{ org: string }> },
+    req: NextRequest
 ): Promise<NextResponse> {
-    const { org: organizationId } = await params;
-
-    const ctx = await resolveApiAuth(organizationId);
+    const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
     let body: unknown;
     try {
@@ -31,7 +29,7 @@ export async function POST(
         return apiErr("BAD_REQUEST", "Request body is not valid JSON.", 400);
     }
 
-    const parsed = StaleAlertSchema.safeParse(body);
+    const parsed = SlaSchema.safeParse(body);
     if (!parsed.success) {
         return apiErr(
             "VALIDATION_ERROR",
@@ -41,7 +39,7 @@ export async function POST(
     }
 
     try {
-        const result = await createOrUpdateStaleAlert(organizationId, parsed.data);
+        const result = await createOrUpdateSla(organizationId, parsed.data);
         return NextResponse.json({ data: result }, { status: 201 });
     } catch (err) {
         return domainError(err);

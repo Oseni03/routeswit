@@ -20,17 +20,16 @@ const CreateRepSchema = z.object({
 });
 
 /**
- * GET /api/v1/route/[org]/reps
+ * GET /api/v1/reps
  * Lists all reps for the organisation.
  */
 export async function GET(
-    _req: NextRequest,
-    { params }: { params: Promise<{ org: string }> },
+    _req: NextRequest
 ): Promise<NextResponse> {
-    const { org: organizationId } = await params;
-
-    const ctx = await resolveApiAuth(organizationId);
+    const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
     try {
         const reps = await listReps(organizationId);
@@ -41,17 +40,16 @@ export async function GET(
 }
 
 /**
- * POST /api/v1/route/[org]/reps
+ * POST /api/v1/reps
  * Creates a new rep.
  */
 export async function POST(
-    req: NextRequest,
-    { params }: { params: Promise<{ org: string }> },
+    req: NextRequest
 ): Promise<NextResponse> {
-    const { org: organizationId } = await params;
-
-    const ctx = await resolveApiAuth(organizationId);
+    const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
     const repLimitErr = await checkRepLimit(organizationId, ctx.tier);
     if (repLimitErr) return repLimitErr;

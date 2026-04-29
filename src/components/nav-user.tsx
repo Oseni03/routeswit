@@ -6,6 +6,7 @@ import {
 	LogOut,
 	Sparkles,
 	UserCircle,
+	Activity,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -104,6 +105,15 @@ export function NavUser() {
 							>
 								<Sparkles className="size-4" />
 								Settings
+							</DropdownMenuItem>
+							<DropdownMenuItem
+								className="flex items-center gap-2 px-3 py-2.5 cursor-pointer rounded-lg m-1 font-medium text-xs uppercase tracking-tight"
+								onClick={() =>
+									router.push("/docs")
+								}
+							>
+								<Activity className="size-4" />
+								API Docs
 							</DropdownMenuItem>
 						</DropdownMenuGroup>
 						<DropdownMenuSeparator className="bg-border/50" />

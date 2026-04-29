@@ -65,17 +65,16 @@ const CreateRulesetSchema = z.object({
 });
 
 /**
- * GET /api/v1/route/[org]/rules
+ * GET /api/v1/rules
  * Lists all active rulesets for the organisation.
  */
 export async function GET(
-	_req: NextRequest,
-	{ params }: { params: Promise<{ org: string }> },
+	_req: NextRequest
 ): Promise<NextResponse> {
-	const { org: organizationId } = await params;
-
-	const ctx = await resolveApiAuth(organizationId);
+	const ctx = await resolveApiAuth();
 	if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
 	try {
 		const rulesets = await listRulesets(organizationId);
@@ -86,17 +85,16 @@ export async function GET(
 }
 
 /**
- * POST /api/v1/route/[org]/rules
+ * POST /api/v1/rules
  * Creates or replaces a named ruleset.
  */
 export async function POST(
-	req: NextRequest,
-	{ params }: { params: Promise<{ org: string }> },
+	req: NextRequest
 ): Promise<NextResponse> {
-	const { org: organizationId } = await params;
-
-	const ctx = await resolveApiAuth(organizationId);
+	const ctx = await resolveApiAuth();
 	if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
 	let body: unknown;
 	try {

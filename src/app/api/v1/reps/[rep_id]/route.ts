@@ -10,17 +10,19 @@ const UpdateRepSchema = z.object({
 });
 
 /**
- * PATCH /api/v1/route/[org]/reps/[rep_id]
+ * PATCH /api/v1/reps/[rep_id]
  * Updates a rep's status, OOO window, or overflow target.
  */
 export async function PATCH(
     req: NextRequest,
-    { params }: { params: Promise<{ org: string; rep_id: string }> },
+    { params }: { params: Promise<{ rep_id: string }> },
 ): Promise<NextResponse> {
-    const { org: organizationId, rep_id } = await params;
+    const { rep_id } = await params;
 
-    const ctx = await resolveApiAuth(organizationId);
+    const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
     let body: unknown;
     try {

@@ -56,6 +56,12 @@ const dashboardItems = [
 		url: "/dashboard/api-keys",
 	},
 	{
+		id: "api-docs",
+		label: "Documentation",
+		icon: Route,
+		url: "/docs",
+	},
+	{
 		id: "settings",
 		label: "Settings",
 		icon: Settings,

@@ -11,22 +11,24 @@ const LogActivitySchema = z.object({
     outcome: z.string().max(64).optional(),
     notes: z.string().max(2000).optional(),
     subject: z.string().max(256).optional(),
-    meeting_time: z.iso.datetime({ offset: true }).optional(),
+    meeting_time: z.string().datetime({ offset: true }).optional(),
     metadata: z.record(z.string(), z.unknown()).optional(),
 });
 
 /**
- * GET /api/v1/route/[org]/contacts/[contact_id]/activities
+ * GET /api/v1/contacts/[contact_id]/activities
  * Returns the activity feed for a contact.
  */
 export async function GET(
     req: NextRequest,
-    { params }: { params: Promise<{ org: string; contact_id: string }> },
+    { params }: { params: Promise<{ contact_id: string }> },
 ): Promise<NextResponse> {
-    const { org: organizationId, contact_id } = await params;
+    const { contact_id } = await params;
 
-    const ctx = await resolveApiAuth(organizationId);
+    const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
     const { searchParams } = new URL(req.url);
     const limit = Math.min(parseInt(searchParams.get("limit") ?? "50"), 200);
@@ -46,17 +48,19 @@ export async function GET(
 }
 
 /**
- * POST /api/v1/route/[org]/contacts/[contact_id]/activities
+ * POST /api/v1/contacts/[contact_id]/activities
  * Logs an activity against a contact. Idempotent by (contact_id, activity_type, timestamp).
  */
 export async function POST(
     req: NextRequest,
-    { params }: { params: Promise<{ org: string; contact_id: string }> },
+    { params }: { params: Promise<{ contact_id: string }> },
 ): Promise<NextResponse> {
-    const { org: organizationId, contact_id } = await params;
+    const { contact_id } = await params;
 
-    const ctx = await resolveApiAuth(organizationId);
+    const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
     let body: unknown;
     try {

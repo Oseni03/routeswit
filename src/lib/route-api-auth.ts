@@ -67,13 +67,13 @@ export interface AuthContext {
  *
  * Usage:
  * ```ts
- * const ctx = await resolveApiAuth(organizationId);
+ * const ctx = await resolveApiAuth();
  * if (ctx instanceof NextResponse) return ctx;
  * ```
  */
-export async function resolveApiAuth(
-	orgId: string,
-): Promise<AuthContext | NextResponse<ApiError>> {
+export async function resolveApiAuth(): Promise<
+	AuthContext | NextResponse<ApiError>
+> {
 	const hdrs = await headers();
 	const authorization = hdrs.get("authorization") ?? "";
 	const token = authorization.startsWith("Bearer ")
@@ -100,26 +100,25 @@ export async function resolveApiAuth(
 		return apiErr("UNAUTHORIZED", "Invalid or expired API key.", 401);
 	}
 
-	// Ensure the key is scoped to the requested org
-	// The referenceId on the key stores the organizationId
-	const keyOrgId = keyVerification.key?.referenceId;
-	if (keyOrgId && keyOrgId !== orgId) {
+	// Resolve org from the key's referenceId
+	const organizationId = keyVerification.key?.referenceId;
+	if (!organizationId) {
 		return apiErr(
 			"FORBIDDEN",
-			"This API key does not have access to the requested organisation.",
+			"This API key is not associated with an organisation.",
 			403,
 		);
 	}
 
 	// Load subscription to determine tier
 	const subscription = await prisma.subscription.findUnique({
-		where: { organizationId: orgId },
+		where: { organizationId },
 		select: { productId: true },
 	});
 
 	const tier = getTier(subscription?.productId);
 
-	return { organizationId: orgId, tier };
+	return { organizationId, tier };
 }
 
 // ─── Entitlement checks ───────────────────────────────────────────────────────

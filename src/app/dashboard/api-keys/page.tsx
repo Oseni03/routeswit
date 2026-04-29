@@ -39,7 +39,7 @@ export default async function ApiKeysPage(): Promise<React.ReactElement> {
 						</CardHeader>
 						<CardContent className="space-y-3">
 							<pre className="rounded-lg bg-muted px-4 py-3 text-xs font-mono overflow-x-auto whitespace-pre-wrap break-all">
-								{`POST /api/v1/route/${activeOrg}/leads\nAuthorization: Bearer sk_••••••••`}
+								{`POST /api/v1/leads\nAuthorization: Bearer sk_••••••••`}
 							</pre>
 							<p className="text-xs text-muted-foreground">
 								Rate limit:{" "}

@@ -16,6 +16,12 @@ function CTA() {
 						Start Routing
 					</Link>
 					<Link
+						href="/docs"
+						className="bg-background text-primary border border-border px-8 py-4 rounded-lg font-xl text-xl font-medium flex items-center justify-center hover:bg-accent transition-colors"
+					>
+						Read Docs
+					</Link>
+					<Link
 						href="/contact"
 						className="bg-white text-primary border border-border px-8 py-4 rounded-lg font-xl text-xl font-medium flex items-center justify-center"
 					>

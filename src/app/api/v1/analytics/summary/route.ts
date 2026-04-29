@@ -4,17 +4,16 @@ import { getAnalyticsSummary } from "@/server/analytics";
 import { PLAN_LIMITS } from "@/lib/route-api-auth";
 
 /**
- * GET /api/v1/route/[org]/analytics/summary?period=YYYY-MM&ruleset_id=...
+ * GET /api/v1/analytics/summary?period=YYYY-MM&ruleset_id=...
  * Returns aggregate routing analytics for the specified period.
  */
 export async function GET(
-	req: NextRequest,
-	{ params }: { params: Promise<{ org: string }> },
+	req: NextRequest
 ): Promise<NextResponse> {
-	const { org: organizationId } = await params;
-
-	const ctx = await resolveApiAuth(organizationId);
+	const ctx = await resolveApiAuth();
 	if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
 	const { searchParams } = new URL(req.url);
 	const period = searchParams.get("period");

@@ -17,6 +17,12 @@ function Footer() {
 				<div className="flex flex-wrap justify-center gap-8">
 					<Link
 						className="text-xs font-semibold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
+						href="/docs"
+					>
+						Documentation
+					</Link>
+					<Link
+						className="text-xs font-semibold uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors"
 						href="/privacy"
 					>
 						Privacy

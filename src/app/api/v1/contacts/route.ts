@@ -11,17 +11,16 @@ const CreateContactSchema = z.object({
 });
 
 /**
- * POST /api/v1/route/[org]/contacts
+ * POST /api/v1/contacts
  * Creates a contact or returns the existing one (idempotent).
  */
 export async function POST(
-    req: NextRequest,
-    { params }: { params: Promise<{ org: string }> },
+    req: NextRequest
 ): Promise<NextResponse> {
-    const { org: organizationId } = await params;
-
-    const ctx = await resolveApiAuth(organizationId);
+    const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
     let body: unknown;
     try {

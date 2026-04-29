@@ -15,17 +15,16 @@ const RouteLeadSchema = z.object({
 });
 
 /**
- * POST /api/v1/route/[org]/leads
+ * POST /api/v1/leads
  * Routes a lead against a ruleset and returns the assignment.
  */
 export async function POST(
-    req: NextRequest,
-    { params }: { params: Promise<{ org: string }> },
+    req: NextRequest
 ): Promise<NextResponse> {
-    const { org: organizationId } = await params;
-
-    const ctx = await resolveApiAuth(organizationId);
+    const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
+
+    const organizationId = ctx.organizationId;
 
     // Billing gate: monthly lead volume
     const leadLimitErr = await checkLeadLimit(organizationId, ctx.tier);

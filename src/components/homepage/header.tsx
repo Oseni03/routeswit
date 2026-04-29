@@ -4,15 +4,17 @@ import { motion } from "framer-motion";
 import { siteConfig } from "@/config/site";
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 function Header() {
 	const { user } = authClient.useSession().data || {};
 	const router = useRouter();
+	const pathname = usePathname();
 
 	const handleSignOut = async () => {
 		try {
@@ -46,16 +48,32 @@ function Header() {
 							{siteConfig.name}
 						</span>
 					</Link>
-					<div className="hidden md:flex gap-6">
+					<div className="hidden md:flex gap-6 items-center">
 						<Link
-							className="text-foreground font-medium border-b-2 border-primary pb-1 text-sm"
+							className={cn(
+								"text-sm font-medium transition-colors",
+								pathname === "/" 
+									? "text-foreground border-b-2 border-primary pb-1" 
+									: "text-muted-foreground hover:text-foreground"
+							)}
 							href="/"
 						>
 							Platform
 						</Link>
 						<Link
-							className="text-muted-foreground hover:text-foreground transition-colors text-sm"
-							href="/"
+							className={cn(
+								"text-sm font-medium transition-colors",
+								pathname.startsWith("/docs") 
+									? "text-foreground border-b-2 border-primary pb-1" 
+									: "text-muted-foreground hover:text-foreground"
+							)}
+							href="/docs"
+						>
+							Docs
+						</Link>
+						<Link
+							className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
+							href="/careers"
 						>
 							Careers
 						</Link>
