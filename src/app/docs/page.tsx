@@ -21,7 +21,7 @@ export default function DocsPage() {
                         Welcome to the Routeswit API. Our API is built on REST principles, providing a structured way to integrate lead routing, sales representative management, and activity tracking into your existing workflows.
                     </p>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
                     <Card className="bg-muted/30 border-none shadow-none">
                         <CardHeader className="pb-2">
@@ -72,13 +72,13 @@ export default function DocsPage() {
                         <h2 className="text-3xl font-bold tracking-tight">Authentication</h2>
                     </div>
                     <p className="text-lg text-muted-foreground leading-relaxed">
-                        The Routeswit API uses API keys for authentication. You can generate and revoke these keys within your 
+                        The Routeswit API uses API keys for authentication. You can generate and revoke these keys within your
                         <Link href="/dashboard/settings" className="text-primary hover:underline font-medium mx-1">
                             Organization Settings
                         </Link>.
                     </p>
                 </div>
-                
+
                 <Card className="border-primary/10 bg-primary/5">
                     <CardContent className="pt-6 space-y-4">
                         <div className="flex items-start gap-4">
@@ -88,7 +88,7 @@ export default function DocsPage() {
                             <div className="space-y-2">
                                 <p className="font-semibold">Authorization Header</p>
                                 <p className="text-sm text-muted-foreground leading-relaxed">
-                                    Include your secret API key in the <code className="bg-background px-1 rounded border">Authorization</code> header for all requests. 
+                                    Include your secret API key in the <code className="bg-background px-1 rounded border">Authorization</code> header for all requests.
                                     Do not share your keys or commit them to version control.
                                 </p>
                             </div>
@@ -118,7 +118,7 @@ export default function DocsPage() {
                         We use standard HTTP status codes to communicate the result of your API requests.
                     </p>
                 </div>
-                
+
                 <div className="rounded-xl border shadow-sm overflow-hidden">
                     <Table>
                         <TableHeader className="bg-muted/50">
@@ -138,11 +138,6 @@ export default function DocsPage() {
                                 <TableCell className="font-bold text-amber-600">401</TableCell>
                                 <TableCell className="font-mono text-xs">UNAUTHORIZED</TableCell>
                                 <TableCell className="text-muted-foreground">Invalid or missing API key.</TableCell>
-                            </TableRow>
-                            <TableRow>
-                                <TableCell className="font-bold text-amber-600">402</TableCell>
-                                <TableCell className="font-mono text-xs">PAYMENT_REQUIRED</TableCell>
-                                <TableCell className="text-muted-foreground">You have reached your plan limits. Please upgrade via Polar.</TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell className="font-bold text-amber-600">404</TableCell>
@@ -180,7 +175,7 @@ export default function DocsPage() {
                         <Badge className="bg-emerald-500 text-white border-none font-bold px-3 py-1">POST</Badge>
                         <code className="text-xl font-mono font-semibold">/leads</code>
                     </div>
-                    
+
                     <Card className="border-none shadow-none bg-muted/20">
                         <CardHeader>
                             <CardTitle className="text-lg">Route a Lead</CardTitle>
@@ -227,7 +222,7 @@ export default function DocsPage() {
                                                     </div>
                                                 </TableCell>
                                                 <TableCell className="text-sm text-muted-foreground align-top py-4">
-                                                    Key-value pairs used for rule matching (e.g., <code className="text-xs">"region": "West"</code>).
+                                                    Key-value pairs used for rule matching (e.g., <code className="text-xs">&quot;region&quot;: &quot;West&quot;</code>).
                                                 </TableCell>
                                             </TableRow>
                                         </TableBody>
@@ -238,7 +233,7 @@ export default function DocsPage() {
                             <div className="space-y-4">
                                 <h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Request Example</h4>
                                 <div className="rounded-xl bg-zinc-950 p-6 text-xs text-zinc-300 font-mono overflow-x-auto shadow-2xl">
-<pre>{`curl -X POST https://app.routeswit.com/api/v1/leads \\
+                                    <pre>{`curl -X POST https://app.routeswit.com/api/v1/leads \\
   -H "Authorization: Bearer sk_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{
@@ -264,7 +259,7 @@ export default function DocsPage() {
                 <div className="space-y-4">
                     <h2 className="text-3xl font-bold tracking-tight">Representatives</h2>
                     <p className="text-lg text-muted-foreground">
-                        Manage your sales team's availability and routing capacity.
+                        Manage your sales team&apos;s availability and routing capacity.
                     </p>
                 </div>
 
@@ -277,7 +272,7 @@ export default function DocsPage() {
                         </div>
                         <p className="text-muted-foreground">List all representatives associated with your organization.</p>
                         <div className="rounded-xl bg-zinc-950 p-6 text-xs text-zinc-300 font-mono overflow-x-auto">
-<pre>{`[
+                            <pre>{`[
   {
     "id": "rep_123",
     "name": "Alex Rivera",
@@ -343,7 +338,7 @@ export default function DocsPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="rounded-xl bg-zinc-950 p-6 text-xs text-zinc-300 font-mono overflow-x-auto shadow-xl">
-<pre>{`{
+                                <pre>{`{
   "name": "EMEA Inbound",
   "slug": "emea-inbound",
   "rules": [
@@ -387,7 +382,7 @@ export default function DocsPage() {
                         <div className="rounded-xl border p-6 bg-muted/10 space-y-4">
                             <p className="text-sm font-semibold">Log a Call or Meeting</p>
                             <div className="rounded bg-zinc-950 p-4 font-mono text-xs text-zinc-300">
-<pre>{`{
+                                <pre>{`{
   "type": "CALL",
   "notes": "Discussed expansion to 50 seats.",
   "outcome": "POSITIVE"
@@ -437,7 +432,7 @@ export default function DocsPage() {
                     </div>
                     <h2 className="text-3xl font-bold">Start Building Today</h2>
                     <p className="text-muted-foreground max-w-lg mx-auto leading-relaxed">
-                        Join hundreds of organizations optimizing their sales flow with Routeswit. 
+                        Join hundreds of organizations optimizing their sales flow with Routeswit.
                         Need a custom integration or have questions? Our engineering team is standing by.
                     </p>
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -448,7 +443,7 @@ export default function DocsPage() {
                         </Link>
                         <Link href="/signup">
                             <Button size="lg" className="w-full sm:w-auto h-12 px-8 font-semibold">
-                                Create Free Developer Account
+                                Get Started for Free
                             </Button>
                         </Link>
                     </div>

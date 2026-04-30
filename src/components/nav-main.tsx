@@ -8,7 +8,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -24,7 +24,6 @@ export function NavMain({
 	}[];
 	isAccountPage: boolean;
 }) {
-	const router = useRouter();
 	const pathname = usePathname();
 	return (
 		<SidebarGroup className="px-2">

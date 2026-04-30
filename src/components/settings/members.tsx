@@ -89,7 +89,7 @@ export const MembersCard = () => {
 				toast.dismiss();
 				toast.success("Member removed successfully");
 			}
-		} catch (error) {
+		} catch {
 			toast.dismiss();
 			toast.error("Failed to remove member");
 		} finally {
@@ -109,7 +109,7 @@ export const MembersCard = () => {
 				toast.dismiss();
 				toast.success("Invite canceled successfully");
 			}
-		} catch (error) {
+		} catch {
 			toast.dismiss();
 			toast.error("Failed to cancel invite");
 		}

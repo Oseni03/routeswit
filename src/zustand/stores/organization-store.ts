@@ -1,6 +1,6 @@
 import { authClient } from "@/lib/auth-client";
 import { Member, Organization } from "@/types";
-import { Invitation, Subscription } from "@prisma/client";
+import { Invitation } from "@prisma/client";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
@@ -9,7 +9,6 @@ export type OrganizationState = {
 	members: Member[];
 	invitations: Invitation[];
 	organizations: Organization[];
-	subscription?: Subscription;
 	isAdmin: boolean;
 	isLoading: boolean;
 	error: string | null;
@@ -37,7 +36,6 @@ type OrganizationActions = {
 		memberId: string,
 		values: { organizationId: string; role: "admin" | "member" },
 	) => Promise<{ success: boolean }>;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	removeMember: (
 		memberId: string,
 		organizationId: string,
@@ -50,10 +48,6 @@ type OrganizationActions = {
 			statusText: string;
 		} | null;
 	}>;
-	loadSubscription: (organizationId: string) => Promise<void>;
-	subscribe: (organizationId: string, products: string[]) => Promise<void>;
-	openPortal: () => Promise<void>;
-	updateSubscription: (subscription: Subscription) => void;
 	setLoading: (loading: boolean) => void;
 	hydrate: (data: Partial<OrganizationState>) => void;
 };
@@ -65,7 +59,6 @@ export const defaultInitState: OrganizationState = {
 	members: [],
 	invitations: [],
 	organizations: [],
-	subscription: undefined,
 	isAdmin: false,
 	isLoading: false,
 	error: null,
@@ -217,118 +210,6 @@ export const createOrganizationStore = (
 					}));
 
 					return { success: true };
-				},
-				loadSubscription: async (organizationId: string) => {
-					if (!organizationId) return;
-
-					set((state) => ({
-						...state,
-						isLoading: true,
-						error: null,
-					}));
-
-					try {
-						const response = await fetch(
-							`/api/subscription/${organizationId}`,
-						);
-
-						if (!response.ok) {
-							if (response.status === 404) {
-								set((state) => ({
-									...state,
-									subscription: undefined,
-									isLoading: false,
-								}));
-								return;
-							}
-							throw new Error("Failed to fetch subscription");
-						}
-
-						const { data } = await response.json();
-						set((state) => ({
-							...state,
-							subscription: data,
-							isLoading: false,
-						}));
-					} catch (error) {
-						console.error("Error loading subscription:", error);
-						set((state) => ({
-							...state,
-							error:
-								error instanceof Error
-									? error.message
-									: "Failed to load subscription",
-							isLoading: false,
-						}));
-					}
-				},
-
-				subscribe: async (
-					organizationId: string,
-					products: string[],
-				) => {
-					if (!organizationId) {
-						set({ error: "Organization ID required" });
-						return;
-					}
-
-					set((state) => ({
-						...state,
-						isLoading: true,
-						error: null,
-					}));
-
-					try {
-						const { data, error } = await authClient.checkout({
-							products,
-							referenceId: organizationId,
-						});
-						set({ isLoading: false });
-						if (error) {
-							throw new Error(error.message);
-						}
-						if (data?.url) window.location.href = data.url;
-						// Note: subscription will be updated via webhook after successful checkout
-					} catch (error) {
-						console.error("Error creating checkout:", error);
-						set((state) => ({
-							...state,
-							error:
-								error instanceof Error
-									? error.message
-									: "Failed to create checkout",
-							isLoading: false,
-						}));
-						throw error;
-					}
-				},
-
-				openPortal: async () => {
-					set((state) => ({
-						...state,
-						isLoading: true,
-						error: null,
-					}));
-
-					try {
-						await authClient.customer.portal();
-						set({ isLoading: false });
-					} catch (error) {
-						console.error("Error opening customer portal:", error);
-						set((state) => ({
-							...state,
-							error:
-								error instanceof Error
-									? error.message
-									: "Failed to open customer portal",
-							isLoading: false,
-						}));
-						throw error;
-					}
-				},
-
-				updateSubscription: (subscription: Subscription) => {
-					set((state) => ({ ...state, subscription }));
 				},
 				hydrate: (data) => {
 					set((state) => ({ ...state, ...data }));

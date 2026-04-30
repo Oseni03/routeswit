@@ -4,22 +4,17 @@ import React, { useState } from "react";
 import {
     Building2,
     Users2,
-    CreditCard,
     ShieldCheck,
-    Puzzle,
 } from "lucide-react";
 import OrganizationCard from "@/components/settings/organizations";
-import SubscriptionCard from "@/components/settings/subscription";
 import { MembersCard } from "@/components/settings/members";
 import SecurityCard from "../settings/security";
-import { IntegrationsCard } from "@/components/settings/integrations";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 const tabsItems = [
     { id: "organization", label: "Organization", icon: Building2 },
     { id: "members", label: "Team Members", icon: Users2 },
-    { id: "subscription", label: "Plans & Billing", icon: CreditCard },
     // { id: "integrations", label: "Integrations", icon: Puzzle },
     { id: "security", label: "Security & Access", icon: ShieldCheck },
 ];
@@ -80,9 +75,7 @@ export function SettingsClient() {
                         <MembersCard />
                     </TabsContent>
 
-                    <TabsContent value="subscription">
-                        <SubscriptionCard />
-                    </TabsContent>
+
 
                     {/* <TabsContent value="integrations">
                         <IntegrationsCard />

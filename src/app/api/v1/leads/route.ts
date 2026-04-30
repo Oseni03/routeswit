@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import {
     resolveApiAuth,
-    checkLeadLimit,
     domainError,
     apiErr,
 } from "@/lib/route-api-auth";
@@ -26,9 +25,7 @@ export async function POST(
 
     const organizationId = ctx.organizationId;
 
-    // Billing gate: monthly lead volume
-    const leadLimitErr = await checkLeadLimit(organizationId, ctx.tier);
-    if (leadLimitErr) return leadLimitErr;
+
 
     let body: unknown;
     try {

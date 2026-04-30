@@ -2,7 +2,6 @@ import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import {
     resolveApiAuth,
-    checkRepLimit,
     domainError,
     apiErr,
 } from "@/lib/route-api-auth";
@@ -23,9 +22,7 @@ const CreateRepSchema = z.object({
  * GET /api/v1/reps
  * Lists all reps for the organisation.
  */
-export async function GET(
-    _req: NextRequest
-): Promise<NextResponse> {
+export async function GET(): Promise<NextResponse> {
     const ctx = await resolveApiAuth();
     if (ctx instanceof NextResponse) return ctx;
 
@@ -51,8 +48,7 @@ export async function POST(
 
     const organizationId = ctx.organizationId;
 
-    const repLimitErr = await checkRepLimit(organizationId, ctx.tier);
-    if (repLimitErr) return repLimitErr;
+
 
     let body: unknown;
     try {

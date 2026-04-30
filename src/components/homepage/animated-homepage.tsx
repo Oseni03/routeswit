@@ -3,7 +3,6 @@
 import { motion } from "framer-motion";
 import Hero from "./hero";
 import Features from "./features";
-import Pricing from "./pricing";
 import CTA from "./CTA";
 import TrustedBy from "./truested-by";
 
@@ -74,22 +73,6 @@ export default function AnimatedHomePage() {
 				className="overflow-hidden"
 			>
 				<Features />
-			</motion.div>
-			<motion.div
-				variants={{
-					hidden: { opacity: 0, y: 28 },
-					visible: {
-						opacity: 1,
-						y: 0,
-						transition: {
-							duration: 0.6,
-							ease: [0, 0, 0.58, 1],
-						},
-					},
-				}}
-				className="overflow-hidden"
-			>
-				<Pricing />
 			</motion.div>
 			<motion.div
 				variants={{

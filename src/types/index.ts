@@ -1,4 +1,3 @@
-import { Subscription } from "@prisma/client";
 
 export interface User {
 	role?: string;
@@ -32,7 +31,6 @@ export interface Organization {
 	id: string;
 	name: string;
 	slug: string;
-	subscription?: Subscription;
 	createdAt: Date;
 	logo?: string | null;
 	// metadata?: any;

@@ -4,43 +4,12 @@
  * Responsibilities:
  *  1. Verify the `Authorization: Bearer sk_…` API key via BetterAuth
  *  2. Resolve the organisation the key belongs to
- *  3. Enforce billing entitlement (plan limits)
- *  4. Return standard error responses in { error: { code, message } } shape
+ *  3. Return standard error responses in { error: { code, message } } shape
  */
 
 import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { SUBSCRIPTION_PLANS } from "@/lib/utils";
-
-// ─── Plan limits ─────────────────────────────────────────────────────────────
-
-export const PLAN_LIMITS = {
-	free: {
-		monthly_leads: 500,
-		reps: 5,
-		rulesets: 1,
-		analytics_months: 1,
-	},
-	pro: {
-		monthly_leads: Infinity,
-		reps: Infinity,
-		rulesets: Infinity,
-		analytics_months: 12,
-	},
-} as const;
-
-export type PlanTier = keyof typeof PLAN_LIMITS;
-
-/**
- * Maps a Polar productId to a plan tier key.
- */
-export function getTier(productId: string | null | undefined): PlanTier {
-	const plan = SUBSCRIPTION_PLANS.find((p) => p.productId === productId);
-	if (!plan) return "free";
-	return plan.id === "pro" ? "pro" : "free";
-}
 
 // ─── Standard response shapes ─────────────────────────────────────────────────
 
@@ -58,7 +27,6 @@ export function apiErr(
 
 export interface AuthContext {
 	organizationId: string;
-	tier: PlanTier;
 }
 
 /**
@@ -110,101 +78,10 @@ export async function resolveApiAuth(): Promise<
 		);
 	}
 
-	// Load subscription to determine tier
-	const subscription = await prisma.subscription.findUnique({
-		where: { organizationId },
-		select: { productId: true },
-	});
-
-	const tier = getTier(subscription?.productId);
-
-	return { organizationId, tier };
+	return { organizationId };
 }
 
-// ─── Entitlement checks ───────────────────────────────────────────────────────
-
-/**
- * Checks if the org has exceeded the monthly lead routing limit.
- */
-export async function checkLeadLimit(
-	organizationId: string,
-	tier: PlanTier,
-): Promise<NextResponse<ApiError> | null> {
-	const limit = PLAN_LIMITS[tier].monthly_leads;
-	if (limit === Infinity) return null;
-
-	const now = new Date();
-	const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-
-	const count = await prisma.routingLog.count({
-		where: {
-			organizationId,
-			assignedAt: { gte: monthStart },
-		},
-	});
-
-	if (count >= limit) {
-		return apiErr(
-			"LEAD_LIMIT_EXCEEDED",
-			`Your plan allows ${limit.toLocaleString()} leads/month. Upgrade to Pro for unlimited routing.`,
-			402,
-		);
-	}
-	return null;
-}
-
-/**
- * Checks if the org has exceeded the rep limit.
- */
-export async function checkRepLimit(
-	organizationId: string,
-	tier: PlanTier,
-): Promise<NextResponse<ApiError> | null> {
-	const limit = PLAN_LIMITS[tier].reps;
-	if (limit === Infinity) return null;
-
-	const count = await prisma.rep.count({ where: { organizationId } });
-	if (count >= limit) {
-		return apiErr(
-			"REP_LIMIT_EXCEEDED",
-			`Your plan allows ${limit} reps. Upgrade to Pro for unlimited reps.`,
-			402,
-		);
-	}
-	return null;
-}
-
-/**
- * Checks if the org has exceeded the ruleset limit.
- */
-export async function checkRulesetLimit(
-	organizationId: string,
-	tier: PlanTier,
-	rulesetId?: string,
-): Promise<NextResponse<ApiError> | null> {
-	const limit = PLAN_LIMITS[tier].rulesets;
-	if (limit === Infinity) return null;
-
-	if (rulesetId) {
-		const existingRuleset = await prisma.ruleset.findFirst({
-			where: { organizationId, rulesetId, deletedAt: null },
-			select: { id: true },
-		});
-		if (existingRuleset) return null;
-	}
-
-	const count = await prisma.ruleset.count({
-		where: { organizationId, deletedAt: null },
-	});
-	if (count >= limit) {
-		return apiErr(
-			"RULESET_LIMIT_EXCEEDED",
-			`Your plan allows ${limit} ruleset. Upgrade to Pro for unlimited rulesets.`,
-			402,
-		);
-	}
-	return null;
-}
+// ─── Translators ──────────────────────────────────────────────────────────────
 
 /**
  * Translates known domain error codes into NextResponse errors.

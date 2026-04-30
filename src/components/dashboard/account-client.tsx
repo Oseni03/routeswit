@@ -2,9 +2,7 @@
 
 import React, { useState } from "react";
 import {
-	User,
 	Lock,
-	Bell,
 	ShieldCheck,
 	Camera,
 	Zap,
@@ -13,7 +11,6 @@ import {
 	Sparkles,
 	Loader2,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

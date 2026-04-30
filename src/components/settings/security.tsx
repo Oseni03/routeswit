@@ -107,7 +107,7 @@ const SecurityCard = () => {
 			} else {
 				toast.error(result.message);
 			}
-		} catch (error) {
+		} catch {
 			toast.error("Failed to change password");
 		} finally {
 			setIsChangingPassword(false);
@@ -128,7 +128,7 @@ const SecurityCard = () => {
 			} else {
 				toast.error(result.message);
 			}
-		} catch (error) {
+		} catch {
 			toast.error("Failed to revoke sessions");
 		} finally {
 			setIsRevokingSessions(false);
@@ -155,7 +155,7 @@ const SecurityCard = () => {
 				setModalPassword("");
 				loadSecurityData();
 			}
-		} catch (error) {
+		} catch {
 			toast.error("Failed to enable 2FA");
 		} finally {
 			setIsProcessing2FA(false);
@@ -428,7 +428,7 @@ const SecurityCard = () => {
 									</p>
 								</div>
 							) : (
-								sessions.map((session, i) => (
+								sessions.map((session) => (
 									<div
 										key={session.id}
 										className={cn(

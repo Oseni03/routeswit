@@ -7,7 +7,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Play, Send, Loader2, Key, Terminal, Code2 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -46,11 +45,18 @@ const ENDPOINTS = [
     }
 ];
 
+interface PlaygroundResponse {
+    status: number;
+    statusText?: string;
+    data?: unknown;
+    error?: string;
+}
+
 export function APIPlayground() {
     const [apiKey, setApiKey] = useState("");
     const [selectedId, setSelectedId] = useState(ENDPOINTS[0].id);
     const [requestBody, setRequestBody] = useState(JSON.stringify(ENDPOINTS[0].defaultBody, null, 2));
-    const [response, setResponse] = useState<any>(null);
+    const [response, setResponse] = useState<PlaygroundResponse | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const selectedEndpoint = ENDPOINTS.find(e => e.id === selectedId)!;
@@ -84,10 +90,10 @@ export function APIPlayground() {
                 statusText: res.statusText,
                 data
             });
-        } catch (error: any) {
+        } catch (error) {
             setResponse({
                 status: 500,
-                error: error.message
+                error: error instanceof Error ? error.message : "An unknown error occurred"
             });
         } finally {
             setIsLoading(false);
@@ -177,8 +183,8 @@ export function APIPlayground() {
                             )}
                         </div>
 
-                        <Button 
-                            className="w-full h-12 gap-2 text-base font-semibold shadow-lg shadow-primary/20" 
+                        <Button
+                            className="w-full h-12 gap-2 text-base font-semibold shadow-lg shadow-primary/20"
                             onClick={handleRun}
                             disabled={isLoading}
                         >
@@ -201,7 +207,7 @@ export function APIPlayground() {
                                 </Badge>
                             )}
                         </div>
-                        
+
                         <div className="flex-1 relative">
                             {response ? (
                                 <pre className="absolute inset-0 p-4 rounded-md border border-zinc-800 bg-zinc-950 text-emerald-400 font-mono text-xs overflow-auto">

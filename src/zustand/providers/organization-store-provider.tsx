@@ -48,7 +48,6 @@ export const OrganizationStoreProvider = ({
 			isAdmin: activeRole?.role == "admin",
 			isLoading: false,
 			error: null,
-			// subscription remains undefined (optional in your type)
 		};
 
 		storeRef.current = createOrganizationStore(initialOrg);
@@ -63,7 +62,6 @@ export const OrganizationStoreProvider = ({
 			members: activeOrganization?.members || [],
 			invitations: activeOrganization?.invitations || [],
 			organizations: (organizations as Organization[]) || [],
-			subscription: (activeOrganization as Organization)?.subscription,
 			isAdmin: activeRole?.role == "admin",
 		});
 	}, [activeRole, activeOrganization, organizations]);

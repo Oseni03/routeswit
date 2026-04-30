@@ -94,21 +94,3 @@ export async function withAdminAuth(
 	});
 }
 
-// export async function withProSubscription(
-// 	request: NextRequest,
-// 	handler: (
-// 		request: NextRequest,
-// 		user: User,
-// 		session: Session
-// 	) => Promise<NextResponse>
-// ) {
-// 	return withAuth(request, async (request, user, session) => {
-// 		if (user.subscription !== "pro") {
-// 			return NextResponse.json(
-// 				{ error: "Pro subscription required" },
-// 				{ status: 403 }
-// 			);
-// 		}
-// 		return await handler(request, user, session);
-// 	});
-// }

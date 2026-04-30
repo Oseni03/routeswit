@@ -92,8 +92,6 @@ model Organization {
   logo            String?
   createdAt       DateTime
   metadata        String?
-  polarCustomerId String?
-  subscription    Subscription?
   members         Member[]
   invitations     Invitation[]
   integrations    Integration[]
@@ -309,38 +307,6 @@ model Invitation {
   user           User         @relation(fields: [inviterId], references: [id], onDelete: Cascade)
 
   @@map("invitation")
-}
-
-model Subscription {
-  id                          String    @id @default(cuid())
-  createdAt                   DateTime  @default(now())
-  modifiedAt                  DateTime?
-  amount                      Int
-  currency                    String
-  recurringInterval           String
-  status                      String
-  currentPeriodStart          DateTime
-  currentPeriodEnd            DateTime
-  cancelAtPeriodEnd           Boolean   @default(false)
-  canceledAt                  DateTime?
-  startedAt                   DateTime
-  endsAt                      DateTime?
-  endedAt                     DateTime?
-  customerId                  String
-  subscriptionId              String?
-  productId                   String
-  discountId                  String?
-  checkoutId                  String
-  customerCancellationReason  String?
-  customerCancellationComment String?
-  metadata                    String? // JSON string
-  customFieldData             String? // JSON string
-  organizationId              String    @unique
-
-  // Relation to Organization model
-  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-
-  @@map("subscription")
 }
 
 model TwoFactor {

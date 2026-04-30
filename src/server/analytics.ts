@@ -10,7 +10,7 @@ export interface AnalyticsPeriod {
 /**
  * Parses a period string like "2026-03" into year/month.
  */
-export function parsePeriod(period: string): AnalyticsPeriod | null {
+function parsePeriod(period: string): AnalyticsPeriod | null {
 	const match = /^(\d{4})-(\d{2})$/.exec(period);
 	if (!match) return null;
 	const year = parseInt(match[1]);

@@ -50,7 +50,6 @@ export async function getActiveOrganization(userId: string) {
 				},
 			},
 			invitations: true,
-			subscription: true,
 		},
 	});
 
@@ -89,7 +88,6 @@ export async function getOrganizationById(orgId: string) {
 					},
 				},
 				invitations: true,
-				subscription: true,
 			},
 		});
 
