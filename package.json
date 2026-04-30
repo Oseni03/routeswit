@@ -9,8 +9,7 @@
 		"lint": "next lint",
 		"postinstall": "prisma generate",
 		"vercel-build": "prisma generate && next build",
-		"prisma:generate": "prisma generate",
-		"auth:generate": "tsx node_modules/better-auth/cli.mjs generate"
+		"prisma:generate": "prisma generate"
 	},
 	"dependencies": {
 		"@better-auth/api-key": "^1.6.9",
