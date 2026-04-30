@@ -7,16 +7,17 @@ import {
     twoFactor,
 } from "better-auth/plugins";
 import { apiKey } from "@better-auth/api-key";
-import { admin, member } from "./permissions";
+import { admin, member } from "@/lib/permissions";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { prisma } from "./prisma";
+import { prisma } from "@/lib/prisma";
 import {
     createOrganization,
     getActiveOrganization,
 } from "@/server/organizations";
-import { sendEmail } from "./resend";
+import { sendEmail } from "@/lib/resend";
 import OrganizationInvitationEmail from "@/components/emails/organization-invitation-email";
 import MagicLinkEmail from "@/components/emails/magic-link-email";
+import { User } from "@prisma/client";
 
 export const auth = betterAuth({
     appName: "Multi-tenant SaaS Boilerplate",
@@ -127,9 +128,9 @@ export const auth = betterAuth({
                 user: {
                     ...user,
                     role: organization?.role,
-                    title: (user as any).title || "",
-                    bio: (user as any).bio || "",
-                    theme: (user as any).theme || "system",
+                    title: (user as User).title || "",
+                    bio: (user as User).bio || "",
+                    theme: (user as User).theme || "system",
                 },
                 session,
                 activeOrganizationId: organization?.id,
@@ -168,5 +169,4 @@ export const auth = betterAuth({
     ],
 });
 
-export type User = typeof auth.$Infer.Session.user;
 export type Session = typeof auth.$Infer.Session;
