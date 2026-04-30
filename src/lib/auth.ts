@@ -74,8 +74,8 @@ export const auth = betterAuth({
                     await createOrganization(
                         user.id,
                         {
-                            name: user.email.split("@")[0],
-                            slug: user.email.split("@")[0].toLowerCase(),
+                            name: "Personal",
+                            slug: "personal",
                         },
                     );
                 },
