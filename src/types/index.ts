@@ -1,62 +1,73 @@
 
 export interface User {
-	role?: string;
-	id: string;
-	createdAt: Date;
-	updatedAt: Date;
-	email: string;
-	emailVerified: boolean;
-	name: string;
-	image?: string | null | undefined;
-	title?: string | null;
-	bio?: string | null;
-	theme?: string | null;
+    role?: string;
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    email: string;
+    emailVerified: boolean;
+    name: string;
+    image?: string | null | undefined;
+    title?: string | null;
+    bio?: string | null;
+    theme?: string | null;
 }
 
 export interface MemberUser {
-	email: string;
-	name: string;
-	image?: string;
+    email: string;
+    name: string;
+    image?: string;
 }
 
 export interface Member {
-	id: string;
-	organizationId: string;
-	userId: string;
-	role: string;
-	createdAt: Date;
-	user: MemberUser;
+    id: string;
+    organizationId: string;
+    userId: string;
+    role: string;
+    createdAt: Date;
+    user: MemberUser;
 }
 export interface Organization {
-	id: string;
-	name: string;
-	slug: string;
-	createdAt: Date;
-	logo?: string | null;
-	// metadata?: any;
+    id: string;
+    name: string;
+    slug: string;
+    createdAt: Date;
+    logo?: string | null;
+    // metadata?: any;
 }
 
 export interface InvitationData {
-	id: string;
-	email: string;
-	role: string;
-	organizationId: string;
-	teamId?: string;
-	status: "pending" | "accepted" | "rejected" | "cancelled";
-	createdAt: string;
-	expiresAt: string;
+    id: string;
+    email: string;
+    role: string;
+    organizationId: string;
+    teamId?: string;
+    status: "pending" | "accepted" | "rejected" | "cancelled";
+    createdAt: string;
+    expiresAt: string;
 }
 
 // Route API Types
 export type {
-	ConditionOperator,
-	RuleCondition,
-	SpecificRepAssignment,
-	RoundRobinAssignment,
-	TerritoryAssignment,
-	AssignmentConfig,
-	RoutingRule,
-	FallbackConfig,
-	RulesetData,
-	RouteLeadResult,
-} from "../server/routing";
+    ConditionOperator,
+    RuleCondition,
+    SpecificRepAssignment,
+    RoundRobinAssignment,
+    TerritoryAssignment,
+    AssignmentConfig,
+    RoutingRule,
+    FallbackConfig,
+    RulesetData,
+    RouteLeadResult,
+} from "./routing";
+
+export type {
+    ActivityType,
+    CreateContactInput,
+    LogActivityInput,
+    ActivitySummary,
+} from "./contacts"
+
+export type { RepRecord, CreateRepInput, UpdateRepInput } from "./reps"
+
+export type { AnalyticsPeriod, RepDistribution, SpeedToLead } from "./analytics"

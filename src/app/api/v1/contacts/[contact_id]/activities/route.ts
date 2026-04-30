@@ -1,7 +1,8 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { resolveApiAuth, domainError, apiErr } from "@/lib/route-api-auth";
-import { logActivity, getContactActivities, ACTIVITY_TYPES } from "@/server/contacts";
+import { logActivity, getContactActivities } from "@/server/contacts";
+import { ACTIVITY_TYPES } from "@/types/contacts";
 
 const LogActivitySchema = z.object({
     activity_type: z.enum(ACTIVITY_TYPES),

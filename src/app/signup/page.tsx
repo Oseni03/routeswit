@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -35,7 +35,7 @@ const formSchema = z.object({
 	password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
-const Signup = () => {
+const SignupContent = () => {
 	const { user } = authClient.useSession().data || {};
 	const router = useRouter();
 	const searchParams = useSearchParams();
@@ -360,4 +360,17 @@ const Signup = () => {
 	);
 };
 
+const Signup = () => {
+	return (
+		<Suspense fallback={
+			<div className="min-h-screen flex items-center justify-center bg-background">
+				<Loader2 className="size-10 animate-spin text-primary opacity-20" />
+			</div>
+		}>
+			<SignupContent />
+		</Suspense>
+	);
+};
+
 export default Signup;
+

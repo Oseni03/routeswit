@@ -39,8 +39,19 @@ export async function POST(
     }
 
     try {
-        const contact = await upsertContact(organizationId, parsed.data);
-        const status = contact.exists ? 200 : 201;
+        const result = await upsertContact(organizationId, parsed.data);
+        const status = result.exists ? 200 : 201;
+
+        // Map to snake_case for API consistency
+        const contact = {
+            id: result.id,
+            contact_id: result.contactId,
+            email: result.email,
+            name: result.name,
+            lead_id: result.leadId,
+            created_at: result.createdAt,
+        };
+
         return NextResponse.json({ data: contact }, { status });
     } catch (err) {
         return domainError(err);
