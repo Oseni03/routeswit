@@ -11,37 +11,37 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
 const jetbrainsMono = JetBrains_Mono({
-	subsets: ["latin"],
-	variable: "--font-mono",
-	weight: ["400"],
+    subsets: ["latin"],
+    variable: "--font-mono",
+    weight: ["400"],
 });
 
 export const metadata: Metadata = {
-	title: siteConfig.name,
-	description: siteConfig.description,
+    title: siteConfig.name,
+    description: siteConfig.description,
 };
 
 export default function RootLayout({
-	children,
+    children,
 }: Readonly<{
-	children: React.ReactNode;
+    children: React.ReactNode;
 }>) {
-	return (
-		<html
-			lang="en"
-			suppressHydrationWarning
-			className={cn(jetbrainsMono.variable, "font-sans", inter.variable)}
-		>
-			<body className={`font-sans antialiased`}>
-				<TooltipProvider>
-					<ThemeProvider>
-						<OrganizationStoreProvider>
-							{children}
-						</OrganizationStoreProvider>
-						<Toaster />
-					</ThemeProvider>
-				</TooltipProvider>
-			</body>
-		</html>
-	);
+    return (
+        <html
+            lang="en"
+            suppressHydrationWarning
+            className={cn(jetbrainsMono.variable, "font-sans", inter.variable)}
+        >
+            <body className={`font-sans antialiased`}>
+                <TooltipProvider>
+                    <ThemeProvider>
+                        <OrganizationStoreProvider>
+                            {children}
+                        </OrganizationStoreProvider>
+                        <Toaster />
+                    </ThemeProvider>
+                </TooltipProvider>
+            </body>
+        </html>
+    );
 }
