@@ -1,5 +1,7 @@
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
+import Header from "@/components/homepage/header";
+import Footer from "@/components/homepage/footer";
 
 export const metadata = {
     title: "About",
@@ -8,51 +10,88 @@ export const metadata = {
 
 export default function AboutPage() {
     return (
-        <div className="container mx-auto px-4 py-16 max-w-4xl">
-            <div className="text-center mb-12">
-                <h1 className="text-4xl font-bold mb-4">About {siteConfig.name}</h1>
-                <p className="text-xl text-muted-foreground">
-                    {siteConfig.description}
-                </p>
-            </div>
+        <>
+            <Header />
 
-            <div className="prose prose-lg mx-auto">
-                <p>
-                    {siteConfig.name} is an intelligent lead routing and activity capture system
-                    designed to help businesses streamline their sales processes and improve
-                    customer engagement.
-                </p>
-
-                <p>
-                    Our platform combines advanced routing algorithms with comprehensive activity
-                    tracking to ensure that every lead reaches the right person at the right time,
-                    maximizing conversion rates and customer satisfaction.
-                </p>
-
-                <h2>Our Mission</h2>
-                <p>
-                    To empower businesses with intelligent automation that transforms how they
-                    connect with their customers and manage their sales pipelines.
-                </p>
-
-                <h2>Key Features</h2>
-                <ul>
-                    <li>Intelligent lead routing based on custom rules and criteria</li>
-                    <li>Real-time activity capture and tracking</li>
-                    <li>Advanced analytics and reporting</li>
-                    <li>Seamless integration with popular CRM systems</li>
-                    <li>Multi-tenant architecture for enterprise scalability</li>
-                </ul>
-
-                <div className="text-center mt-12">
-                    <Link
-                        href="/contact"
-                        className="inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
-                    >
-                        Get in Touch
-                    </Link>
+            <main className="min-h-screen bg-background">
+                {/* Hero Section */}
+                <div className="bg-gradient-to-br from-primary/5 via-background to-background border-b">
+                    <div className="container mx-auto px-6 pt-24 pb-20 max-w-5xl text-center">
+                        <h1 className="text-6xl md:text-7xl font-bold tracking-tighter mb-6">
+                            About {siteConfig.name}
+                        </h1>
+                        <p className="text-2xl text-muted-foreground max-w-3xl mx-auto">
+                            {siteConfig.description}
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </div>
+
+                <div className="container mx-auto px-6 py-20 max-w-4xl">
+                    <div className="prose prose-lg dark:prose-invert mx-auto">
+                        <p className="text-xl leading-relaxed text-foreground/90">
+                            {siteConfig.name} is an intelligent lead routing and activity capture system
+                            designed to help businesses streamline sales processes and dramatically improve
+                            customer engagement.
+                        </p>
+
+                        <p>
+                            We combine powerful routing algorithms with real-time activity tracking to
+                            ensure every lead reaches the right person at the right time.
+                        </p>
+
+                        {/* Stats */}
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 my-16 not-prose">
+                            {[
+                                { number: "95%", label: "Avg Lead Response Time Reduction" },
+                                { number: "3.2x", label: "Increase in Conversion Rates" },
+                                { number: "50+", label: "CRM Integrations" },
+                                { number: "99.9%", label: "Uptime SLA" },
+                            ].map((stat, i) => (
+                                <div key={i} className="text-center">
+                                    <div className="text-4xl font-bold text-primary mb-2">{stat.number}</div>
+                                    <p className="text-sm text-muted-foreground leading-tight">{stat.label}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <h2 className="text-4xl font-semibold tracking-tight mt-10">Our Mission</h2>
+                        <p className="text-lg">
+                            To empower businesses with intelligent automation that transforms how they
+                            connect with customers and manage their sales pipelines.
+                        </p>
+
+                        <h2 className="text-4xl font-semibold tracking-tight mt-16 mb-8">Key Features</h2>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {[
+                                "Intelligent lead routing based on custom rules",
+                                "Real-time activity capture & tracking",
+                                "Advanced analytics and reporting dashboards",
+                                "Seamless CRM integrations",
+                                "Multi-tenant enterprise architecture",
+                                "Role-based access control & security",
+                            ].map((feature, i) => (
+                                <div key={i} className="flex gap-4 bg-card p-6 rounded-2xl border">
+                                    <div className="w-8 h-8 rounded-xl bg-primary/10 flex items-center justify-center text-primary flex-shrink-0 mt-0.5">
+                                        ✓
+                                    </div>
+                                    <p className="text-[17px] leading-relaxed">{feature}</p>
+                                </div>
+                            ))}
+                        </div>
+
+                        <div className="flex justify-center mt-16">
+                            <Link
+                                href="/contact"
+                                className="inline-flex items-center justify-center rounded-2xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all text-lg font-semibold px-12 py-4 shadow-xl shadow-primary/25"
+                            >
+                                Get in Touch
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <Footer />
+        </>
     );
 }

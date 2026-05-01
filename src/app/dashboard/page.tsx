@@ -117,7 +117,7 @@ export default async function DashboardPage() {
                         })}
                     </p>
                 </div>
-                <div className="flex gap-3">
+                {/* <div className="flex gap-3">
                     <Button
                         variant="outline"
                         size="sm"
@@ -133,7 +133,7 @@ export default async function DashboardPage() {
                         <Plus className="size-3.5" />
                         New Routing Rule
                     </Button>
-                </div>
+                </div> */}
             </section>
 
             {/* Stats Grid */}
