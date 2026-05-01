@@ -30,7 +30,7 @@ export default function DocsPage() {
                         </CardHeader>
                         <CardContent>
                             <code className="text-sm font-mono font-bold bg-background px-3 py-1.5 rounded border">
-                                https://app.routeswit.com/api/v1
+                                {`${process.env.NEXT_PUBLIC_APP_URL}/api/v1`}
                             </code>
                         </CardContent>
                     </Card>
@@ -233,7 +233,7 @@ export default function DocsPage() {
                             <div className="space-y-4">
                                 <h4 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">Request Example</h4>
                                 <div className="rounded-xl bg-zinc-950 p-6 text-xs text-zinc-300 font-mono overflow-x-auto shadow-2xl">
-                                    <pre>{`curl -X POST https://app.routeswit.com/api/v1/leads \\
+                                    <pre>{`curl -X POST ${process.env.NEXT_PUBLIC_APP_URL}/api/v1/leads \\
   -H "Authorization: Bearer sk_live_..." \\
   -H "Content-Type: application/json" \\
   -d '{

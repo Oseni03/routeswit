@@ -5,7 +5,7 @@ import Footer from "@/components/homepage/footer";
 
 const Page = () => {
 	return (
-		<div className="text-on-surface selection:bg-accent selection:text-primary">
+		<div className="min-h-screen bg-background text-foreground selection:bg-primary/20 selection:text-primary">
 			{/* Navbar */}
 			<Header />
 			<AnimatedHomePage />

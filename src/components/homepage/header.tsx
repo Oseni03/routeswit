@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ModeToggle } from "../theme/mode-toggle";
 
 function Header() {
 	const { user } = authClient.useSession().data || {};
@@ -37,24 +38,26 @@ function Header() {
 			className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border"
 		>
 			<nav className="flex justify-between items-center w-full px-6 py-3 max-w-[1400px] mx-auto">
-				<div className="flex items-center gap-8">
-					<Link href="/" className="inline-flex items-center gap-3">
-						<img
-							src={siteConfig.logoUrl}
-							alt={`${siteConfig.name} logo`}
-							className="h-8 w-auto rounded-lg"
-						/>
-						<span className="text-lg font-bold text-foreground">
+				<div className="flex items-center gap-10">
+					<Link href="/" className="inline-flex items-center gap-3 group transition-all">
+						<div className="bg-primary/10 p-1.5 rounded-lg group-hover:bg-primary/20 transition-colors">
+							<img
+								src={siteConfig.logoUrl}
+								alt={`${siteConfig.name} logo`}
+								className="h-6 w-auto"
+							/>
+						</div>
+						<span className="text-xl font-bold tracking-tight text-foreground">
 							{siteConfig.name}
 						</span>
 					</Link>
-					<div className="hidden md:flex gap-6 items-center">
+					<div className="hidden md:flex gap-8 items-center">
 						<Link
 							className={cn(
-								"text-sm font-medium transition-colors",
+								"text-sm font-semibold transition-all hover:text-primary",
 								pathname === "/" 
-									? "text-foreground border-b-2 border-primary pb-1" 
-									: "text-muted-foreground hover:text-foreground"
+									? "text-primary" 
+									: "text-muted-foreground"
 							)}
 							href="/"
 						>
@@ -62,50 +65,53 @@ function Header() {
 						</Link>
 						<Link
 							className={cn(
-								"text-sm font-medium transition-colors",
+								"text-sm font-semibold transition-all hover:text-primary",
 								pathname.startsWith("/docs") 
-									? "text-foreground border-b-2 border-primary pb-1" 
-									: "text-muted-foreground hover:text-foreground"
+									? "text-primary" 
+									: "text-muted-foreground"
 							)}
 							href="/docs"
 						>
 							Docs
 						</Link>
 						<Link
-							className="text-muted-foreground hover:text-foreground transition-colors text-sm font-medium"
-							href="/careers"
+							className="text-muted-foreground hover:text-primary transition-all text-sm font-semibold"
+							href="/about"
 						>
-							Careers
+							About
 						</Link>
 					</div>
 				</div>
-				<div className="flex items-center gap-4">
+				<div className="flex items-center gap-3">
+					<ModeToggle />
+					<div className="h-4 w-[1px] bg-border mx-2 hidden sm:block"></div>
 					{user ? (
 						<>
 							<Link
-								className="text-muted-foreground hover:text-foreground transition-colors font-sm text-sm"
+								className="text-muted-foreground hover:text-foreground transition-colors font-semibold text-sm mr-2"
 								href="/dashboard"
 							>
 								Dashboard
 							</Link>
 							<Button
 								onClick={handleSignOut}
-								className="flex items-center gap-2"
+								className="flex items-center gap-2 rounded-xl font-bold"
+								variant="secondary"
 							>
 								<LogOut className="w-4 h-4" />
-								<span>Sign out</span>
+								<span className="hidden sm:inline">Sign out</span>
 							</Button>
 						</>
 					) : (
 						<>
 							<Link
-								className="text-muted-foreground hover:text-foreground transition-colors font-sm text-sm"
+								className="text-muted-foreground hover:text-foreground transition-colors font-semibold text-sm px-4"
 								href="/login"
 							>
 								Log in
 							</Link>
 							<Link
-								className="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-sm text-sm font-semibold hover:opacity-90 transition-opacity"
+								className="bg-primary text-primary-foreground px-5 py-2.5 rounded-xl font-bold text-sm hover:shadow-lg hover:shadow-primary/20 transition-all"
 								href="/signup"
 							>
 								Sign up

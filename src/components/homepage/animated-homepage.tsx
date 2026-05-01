@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Hero from "./hero";
 import Features from "./features";
 import CTA from "./CTA";
-import TrustedBy from "./truested-by";
+import TrustedBy from "./trusted-by";
 
 const containerVariants = {
 	hidden: { opacity: 1 },
@@ -20,7 +20,7 @@ const containerVariants = {
 export default function AnimatedHomePage() {
 	return (
 		<motion.main
-			className="pt-24"
+			className="pt-24 bg-background"
 			variants={containerVariants}
 			initial="hidden"
 			whileInView="visible"

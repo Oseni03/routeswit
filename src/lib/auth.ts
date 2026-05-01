@@ -130,7 +130,7 @@ export const auth = betterAuth({
                     role: organization?.role,
                     title: (user as User).title || "",
                     bio: (user as User).bio || "",
-                    theme: (user as User).theme || "system",
+                    theme: (user as User).theme || "light",
                 },
                 session,
                 activeOrganizationId: organization?.id,
